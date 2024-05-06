@@ -18,7 +18,7 @@ Maybe you can mention me or this repo in the acknowledgements too
   
    
 <h4>
-    <a href="https://github.com/Louis3797/awesome-readme-template/">View Demo (Coming Soon!)</a>
+    <a href="https://arischristoforidis.github.io/visual-directions/">View Demo (Read Tips for running the demo first!)</a>
   </h4>
 </div>
 
@@ -29,6 +29,8 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 - [Table of Contents](#table-of-contents)
   - [About the Project](#about-the-project)
+    - [Limitations](#limitations)
+    - [Tips for running the demo](#tips-for-running-the-demo)
     - [Screenshots](#screenshots)
     - [Tech Stack](#tech-stack)
   - [Run Locally](#run-locally)
@@ -58,6 +60,23 @@ The way the app works is the following: Given an origin and destination points f
 
 
 The new augmented navigation directions can be accessed through a Flutter web app.
+
+### Limitations
+
+There are a number of limitations that constrain this implementation and you should be aware of them.
+
+Obviously street view coverage is not global, and since this idea is based on street view imagery, it cannot provide directions for areas that have no coverage. 
+
+Additionally, there is the obvious issue that certain street view panoramas are bound to get outdated as time passes. Points of interest and landmarks may be added, removed or altered, especially considering some of those may be commercial buildings that change ownership.
+
+
+### Tips for running the demo
+
+- To test the app, use a __small route of 5-7 steps or less__. As of writing this, Gemini's rate limits are *very* strict and since the app requests all model predictions at the start, it can hit the limits easily.
+- The total generation takes about 35 seconds. If a instruction generation fails, please wait 1 minute before attempting again (to reset the rate limits).
+- If you are having trouble plotting a route with a named Origin and Destination points(e.g. address), __try to input the origin and destination coordinates__ instead. I have found that they work much better.
+- Keep in mind that The Street View Static API used for the image fetching on the backend and the Embed API that is responsible for the embedded interactive street view on the front end app are two different entities and behave differently. The Embed API may return a panorama that is close(1-2 panoramas away) to the navigation instruction coordinates but not exactly at the same location as the Static API. If this happens to you, you may find that the Point of Reference Navigation instructions are referring to a landmark that you may not be able to see directly from the interactive panorama. 
+- Gemini is a little hit or miss with text on signs. If a sign is clearly visible, it can read it very well, but it overly eager and often tries to read obscured signs which lead to mistakes. I tried to discourage this on the prompt, but it is not completely neutered.
 
 <!-- Screenshots -->
 ### Screenshots
